@@ -1,4 +1,5 @@
 import { galleryItems } from './gallery-items.js';
+// import * as basicLightbox from 'basiclightbox';
 
 console.log(galleryItems);
 
@@ -37,6 +38,8 @@ function makeGalleryMarkup(images) {
 };
 
 function onImageClick(event) {
+    event.preventDefault();
+
     const isImgEl = event.target.classList.contains('gallery__image');
 
     if (!isImgEl) {
@@ -44,9 +47,14 @@ function onImageClick(event) {
     }
 
     const imgEl = event.target;
-    const imgGallery = imgEl.closest('.gallery__item');
+    const imgSource = imgEl.dataset.source;
+     const instance = basicLightbox.create(`
+        <img src="${imgSource}" alt="${imgEl.alt}" width="800" height="600">
+    `);
+    instance.show();
+    // const imgGallery = imgEl.closest('.gallery__item');
 
-    console.log(imgGallery);
+    // console.log(imgGallery);
 }
 
 
