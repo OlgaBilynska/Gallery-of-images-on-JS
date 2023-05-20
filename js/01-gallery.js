@@ -29,34 +29,29 @@ let instance;
 function onImageClick(event) {
     event.preventDefault();
 
-    const isImgEl = event.target.classList.contains('gallery__image');
 
-    if (!isImgEl) {
+    if (!event.target.nodeName === 'IMG') {
         return;
-    }
+    }  
 
     const imgEl = event.target;
     const imgSource = imgEl.dataset.source;
 
-        
     instance = basicLightbox.create(`
         <img src="${imgSource}" alt="${imgEl.alt}" width="800" height="600">
-    `);
-
-    instance.show();
-    
-    window.addEventListener('keydown', onEscKeyPress);
+    `,
+        {
+            onShow: (instance) =>
+                window.addEventListener('keydown', onEscKeyPress),
+            onClose: (instance) =>
+                window.removeEventListener('keydown', onEscKeyPress),
+        },
+    ) 
+    instance.show()
 }
 
  function onEscKeyPress(event) {
-    if (event.key === 'Escape' && instance) {
+    if (event.key === 'Escape') {
         instance.close();
     }
-      window.removeEventListener('keydown', onEscKeyPress);
     }
-
-
-
-
-
-
