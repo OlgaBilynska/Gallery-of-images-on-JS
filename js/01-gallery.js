@@ -37,21 +37,24 @@ function onImageClick(event) {
 
     const imgEl = event.target;
     const imgSource = imgEl.dataset.source;
+
+        
     instance = basicLightbox.create(`
         <img src="${imgSource}" alt="${imgEl.alt}" width="800" height="600">
     `);
-    instance.show();
 
-    window.addEventListener('keydown', onKeyPress);
+        instance.show();
+        window.addEventListener('keydown', onEscKeyPress);
 
-    function onKeyPress(event) {
-    if (event.key === 'Escape') {
+    function onEscKeyPress(event) {
+    if (event.key === 'Escape' && instance) {
         instance.close();
         console.log(event.code);
         }
     }
 }
 
+ window.removeEventListener('keydown', onEscKeyPress);
 
 
 
