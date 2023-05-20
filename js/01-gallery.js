@@ -43,18 +43,18 @@ function onImageClick(event) {
         <img src="${imgSource}" alt="${imgEl.alt}" width="800" height="600">
     `);
 
-        instance.show();
-        window.addEventListener('keydown', onEscKeyPress);
-
-    function onEscKeyPress(event) {
-    if (event.key === 'Escape' && instance) {
-        instance.close();
-        console.log(event.code);
-        }
-    }
+    instance.show();
+    
+    window.addEventListener('keydown', onEscKeyPress);
 }
 
- window.removeEventListener('keydown', onEscKeyPress);
+ function onEscKeyPress(event) {
+    if (event.key === 'Escape' && instance) {
+        instance.close();
+    }
+      window.removeEventListener('keydown', onEscKeyPress);
+    }
+
 
 
 
