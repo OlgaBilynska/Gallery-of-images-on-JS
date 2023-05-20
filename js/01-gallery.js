@@ -1,17 +1,4 @@
 import { galleryItems } from './gallery-items.js';
-// import * as basicLightbox from 'basiclightbox';
-
-console.log(galleryItems);
-
-// const instance = basicLightbox.create(`
-// 	<h1>Dynamic Content</h1>
-// 	<p>You can set the content of the lightbox with JS.</p>
-// `);
-
-
-// console.log(instance);
-// instance.show();
-
 
 const galleryContainer = document.querySelector('.gallery');
 const imagesMarkup = makeGalleryMarkup(galleryItems);
@@ -37,6 +24,8 @@ function makeGalleryMarkup(images) {
     }).join('');
 };
 
+let instance;
+
 function onImageClick(event) {
     event.preventDefault();
 
@@ -48,14 +37,22 @@ function onImageClick(event) {
 
     const imgEl = event.target;
     const imgSource = imgEl.dataset.source;
-     const instance = basicLightbox.create(`
+    instance = basicLightbox.create(`
         <img src="${imgSource}" alt="${imgEl.alt}" width="800" height="600">
     `);
     instance.show();
-    // const imgGallery = imgEl.closest('.gallery__item');
 
-    // console.log(imgGallery);
+    window.addEventListener('keydown', onKeyPress);
+
+    function onKeyPress(event) {
+    if (event.key === 'Escape') {
+        instance.close();
+        console.log(event.code);
+        }
+    }
 }
+
+
 
 
 
